@@ -47,5 +47,34 @@ tasks are executing in parallel. The elapsed time results gives an accurate
 summary of how much the actual build time changed (e.g. how long you actually
 had to wait for the build).
 
+## Running a statistical analysis
+
+A statistical analysis of the impact that Icecream has on the build can be
+captured using the `build_stats.sh` script. The script takes up to two
+arguments, optionally the starting build number, and the ending build number.
+This allows you to split up builds you want to perform into multiple
+invocations. For example, to run 20 tests which will create results for builds
+numbered 1-20.
+
+```shell
+./build_stats.sh 20
+```
+
+You can also split this up into two phases of 10 builds each if desired:
+
+```shell
+./build_stats.sh 10
+./bulld_stats.sh 11 20
+```
+
+Once the builds are complete, the results can be analyzed using the
+`analyze_stats.py` script. The script will detect the output from all test runs
+built with `build_stats.sh` and generate a number of CSV spreadsheet files in
+the `stats` directory as output.
+
+*Note:* The `analyze_stats.py` script requires that both
+[numpy](https://www.numpy.org/) and [scipy](https://www.scipy.org/) are
+installed
+
 [Icecream]: https://github.com/icecc/icecream
 [pyrex]: https://github.com/garmin/pyrex
